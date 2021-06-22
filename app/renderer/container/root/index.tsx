@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './index.less';
 import { useHistory } from 'react-router';
 import { shell } from 'electron';
 import Logo from '@assets/logo.png';
-import { ROUTER_ENTRY, ROUTER_KEY } from '@common/constants/router';
+import { ROUTER_ENTRY } from '@common/constants/router';
 import { isHttpOrHttpsUrl } from '@src/common/utils/router';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Root() {
-  const history = useHistory();
+  const appName = useSelector((state: any) => {
+    return state.globalModel.appName;
+  });
+  console.log('appName = ', appName);
 
+  const history = useHistory();
+  const dispatch = useDispatch();
   const onRouterToLink = (router: TSRouter.Item) => {
     if (isHttpOrHttpsUrl(router.url)) {
       shell.openExternal(router.url);
@@ -16,6 +22,23 @@ function Root() {
       history.push(router.url);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      console.log('3s 后修改...');
+      dispatch({
+        type: 'globalModel/setStore',
+        payload: {
+          key: 'appName',
+          values: 'visResumeMook',
+        },
+      });
+    }, 3000);
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log('appName = ', appName);
+  }, [appName]);
 
   return (
     <div styleName="root">
