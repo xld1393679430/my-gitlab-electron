@@ -3,7 +3,7 @@ import { app, BrowserWindow } from 'electron';
 
 function isDev() {
   // 👉 还记得我们配置中通过 webpack.DefinePlugin 定义的构建变量吗
-  return process.env.NODE_ENV === "development";
+  return process.env.NODE_ENV === 'development';
 }
 
 function createWindow() {
@@ -12,8 +12,8 @@ function createWindow() {
     height: 800,
     frame: true,
     webPreferences: {
-        devTools: true,
-        nodeIntegration: true,
+      devTools: true,
+      nodeIntegration: true,
     },
   });
 
@@ -27,7 +27,7 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
-  app.on("activate", function () {
+  app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }

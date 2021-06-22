@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "author": "",
+  "author": "xld",
   "license": "ISC",
-  "main": "./app/main/electron.js",
+  "main": "./dist/electron.js",
   "scripts": {
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx,.mdx",
     "start:main": "NODE_ENV=development webpack --config ./webpack/webpack.main.dev.js && electron ./dist/electron.ts",
     "start:render": "webpack-dev-server --config ./webpack/webpack.render.dev.js",
+    "build:main": "webpack --config ./webpack/webpack.main.prod.js",
+    "build:render": "webpack --config ./webpack/webpack.render.prod.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "install:electron": "ELECTRON_MIRROR=https://cdn.npm.taobao.org/dist/electron/ npm install electron"
   },
   "dependencies": {
@@ -17,7 +22,6 @@
     "@babel/polyfill": "^7.12.1",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
-    "electron": "11.1.1",
     "html-webpack-plugin": "^4.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -44,6 +48,7 @@
     "autoprefixer": "9.0.0",
     "babel-plugin-react-css-modules": "5.2.6",
     "css-loader": "3.0.0",
+    "electron": "11.1.1",
     "eslint": "^7.26.0",
     "eslint-config-alloy": "^4.1.0",
     "eslint-config-prettier": "^8.3.0",
@@ -58,5 +63,15 @@
     "prettier": "^2.3.0",
     "style-loader": "2.0.0",
     "typescript": "^4.3.4"
+  },
+  "build": {
+    "appId": "visResumeMook.ElectronReact",
+    "productName": "VisResumeMook",
+    "copyright": "Copyright © 2019 ${author}",
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "node_modules/"
+    ]
   }
 }
